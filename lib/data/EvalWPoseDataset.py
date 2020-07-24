@@ -13,6 +13,8 @@ import json
 from torch.utils.data import Dataset
 import torchvision.transforms as transforms
 
+import scipy.io
+
 def crop_image(img, rect):
     x, y, w, h = rect
 
@@ -264,6 +266,10 @@ class EvalWPoseDataset(Dataset):
         calib = torch.Tensor(projection_matrix).float()
 
         calib_world = torch.Tensor(intrinsic).float()
+        
+        # calib_data = {'proj':projection_matrix, 'instr':intrinsic}
+        # print('---------------')
+        # scipy.io.savemat('./debug/calib_data.mat', calib_data)
 
         # image
         image_512 = self.to_tensor(image_512)

@@ -34,7 +34,8 @@ def index(feat, uv):
     '''
     uv = uv.transpose(1, 2)
     uv = uv.unsqueeze(2)
-    samples = torch.nn.functional.grid_sample(feat, uv, align_corners=True)
+    # samples = torch.nn.functional.grid_sample(feat, uv, align_corners=True)
+    samples = torch.nn.functional.grid_sample(feat, uv)
     return samples[:, :, :, 0]
 
 def orthogonal(points, calib, transform=None):

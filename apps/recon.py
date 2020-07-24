@@ -75,7 +75,6 @@ def gen_mesh(res, net, cuda, data, save_path, thresh=0.5, use_octree=True, compo
             net.calc_normal(verts_tensor[:, None, :, left:right], calib_tensor[:,None], calib_tensor)
             nml = net.nmls.detach().cpu().numpy()[0] * 0.5 + 0.5
             color[left:right] = nml.T
-
         save_obj_mesh_with_color(save_path, verts, faces, color)
     except Exception as e:
         print(e)

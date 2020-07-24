@@ -13,6 +13,8 @@ import json
 from torch.utils.data import Dataset
 import torchvision.transforms as transforms
 
+import scipy.io
+
 def crop_image(img, rect):
     x, y, w, h = rect
 
@@ -110,6 +112,11 @@ class EvalDataset(Dataset):
         B_MAX = np.array([1, 1, 1])
         projection_matrix = np.identity(4)
         projection_matrix[1, 1] = -1
+
+        calib_data = {'proj':projection_matrix, 'instr':intrinsic}
+        print('---------------')
+        scipy.io.savemat('./debug/calib_data.mat', calib_data)
+
         calib = torch.Tensor(projection_matrix).float()
 
         calib_world = torch.Tensor(intrinsic).float()
